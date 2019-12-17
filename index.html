@@ -21,11 +21,25 @@
         /* min-width: 200px !important; */
         /* max-width: 100px !important; */
       }
+      #tag {
+        position: fixed;
+        top: 0;
+        right: 0;
+      }
     }
       /* 窗口width在 小于500px 表单的background透明 */
     @media screen and (max-width: 500px) {
       .main {
         background: rgba(0, 0, 0, 0) !important;
+      }
+    }
+    @media screen and (max-width: 350px) {
+      #tag {
+        transform: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 420px;
       }
     }
     </style>

@@ -2,7 +2,7 @@
   <div class="wrap" :style="wrapRotate">
     <div class="main">
       <h2>注册</h2>
-      <div class="tag" @click="telRegister()">
+      <div id="tag" class="tag" @click="telRegister()">
         {{tagName}}
       </div>
       <!-- <div class="triangle">
