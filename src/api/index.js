@@ -3,7 +3,7 @@ import request from '@/api/request'
 const Base = ''
 
 // 注册，判断用户名重复
-const userNameDuplicate = (params) => {
+export const userNameDuplicate = (params) => {
   return request({
     method: 'get',
     url: Base + '/userNameDuplicate',
@@ -12,18 +12,15 @@ const userNameDuplicate = (params) => {
 }
 
 // 注册
-const register = (params) => {
+export const register = (params) => {
   return request({
     method: 'post',
     url: Base + '/api/user/re',
-    params: [{
-      a: 2,
-      b: 2
-    }]
+    params: params
   })
 }
 
-export default {
-  userNameDuplicate,
-  register
-}
+// export default {
+//   userNameDuplicate,
+//   register
+// }

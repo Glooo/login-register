@@ -17,8 +17,11 @@ Vue.prototype.$axios = axios
 // }
 axios.defaults.baseURL = '/'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' // 配置请求头（推荐）
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.timeout = 15000 // 超时响应
+axios.defaults.withCredentials = true // axios 默认不发送cookie，需要全局设置true发送cookie
+
 axios.defaults.transformRequest = [function (data) {
   let ret = ''
   for (let it in data) {

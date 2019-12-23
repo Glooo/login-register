@@ -14,7 +14,7 @@ module.exports = {
       // 连接后台
       '/api': {
         // target: 'http://192.168.0.115:3000', // 后台地址
-        target: 'http://10.231.92.5:3000',
+        target: 'http://10.231.92.35:3000',
         changeOrigin: true, // 跨域代理
         pathRewrite: {
           '^/api': '/' // 路径重写

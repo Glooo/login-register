@@ -48,7 +48,29 @@
 
         </div>
         <div v-if="isTelRe">
-          手机号注册
+          <!-- 手机号注册 -->
+           <div>
+            <el-radio-group v-model="form.type">
+              <el-radio :label="1" style="color:#F7F7F7">我是学生</el-radio>
+              <el-radio :label="0" style="color:#F7F7F7">我是老师</el-radio>
+            </el-radio-group>
+          </div>
+          <el-form-item class="formItem" prop="tel">
+            手机号：
+            <el-input
+              placeholder="输入您的手机号"
+              v-model="form.tel"
+              size="small"
+              clearable
+              style="width:200px;">
+            </el-input>
+          </el-form-item>
+          <div>
+            验证码
+            <div class="test">
+
+            </div>
+          </div>
         </div>
         <el-form-item class="submitBt">
           <el-button plain type="primary" @click="submitForm('form')">注册</el-button>
@@ -64,8 +86,8 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
-// import request from '@/api/index'
+import axios from 'axios'
+import { register } from '@/api/index'
 const USER_REGISTER = '账号密码注册'
 const TELE_REGISTER = '手机号注册'
 export default {
@@ -74,14 +96,15 @@ export default {
       // 绑定style
       isRotate: false,
       // 是否为手机号注册
-      isTelRe: false,
+      isTelRe: true,
       // 右上角tag名称
       tagName: TELE_REGISTER,
       form: {
         username: '',
         pwd1: '',
         pwd2: '',
-        type: 1
+        type: 1,
+        tel: ''
       },
       rules: {
         username: [{required: true, message: '请输入username', trigger: 'blur'},
@@ -124,21 +147,21 @@ export default {
     },
     async submitForm (formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // submit
-          console.log(`submit`)
-        } else {
-          this.$message.warning({ message: `请检查必填项OwO～`, center: true })
-          return false
-        }
+        // if (valid) {
+        let params = {a: 1, b: 2}
+        let data = register(params)
+        console.log(data)
+        // } else {
+        //   this.$message.warning({ message: `请检查必填项OwO～`, center: true })
+        //   return false
+        // }
       })
+      // post写法
 
-      // let params = this.$qs.stringify({
-      //   a: 1, b: 2, c: 3
-      // })
-      // console.log(params)
-      // let data = await request.register([{a: 1, b: 1}])
-      // console.log(data)
+      axios.post('/api/user/re', {a: 2, b: 2})
+        .then((res) => { return res })
+        .catch((err) => { return err })
+
       // axios({
       //   method: 'get',
       //   url: 'http://10.231.92.5:3000/api/user',
@@ -264,5 +287,10 @@ export default {
       transition: all 0.2s;
     }
   }
+}
+.test {
+  height: 100px;
+  width: 200px;
+  background: grey;
 }
 </style>
