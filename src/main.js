@@ -8,14 +8,16 @@ import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+// import qs from 'qs'
+
 Vue.prototype.$axios = axios
 // this.http.post()
 // axios.defaults.headers = {
 //   'Content-Type': 'application/x-www-form-urlencoded' //设置axios 发出post跨域请求
 // }
-axios.defaults.baseURL = '/api'
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.baseURL = '/'
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.transformRequest = [function (data) {
   let ret = ''
@@ -24,6 +26,8 @@ axios.defaults.transformRequest = [function (data) {
   }
   return ret
 }]
+
+// Vue.prototype.$qs = qs
 
 Vue.prototype.$axios = axios
 

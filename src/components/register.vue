@@ -5,57 +5,58 @@
       <div id="tag" class="tag" @click="telRegister()">
         {{tagName}}
       </div>
-      <!-- <div class="triangle">
-      </div> -->
-      <!-- <div class="triangle2">
-      </div> -->
-      <div v-if="!isTelRe">
-        <div>
-          <el-radio-group v-model="form.type">
-            <el-radio :label="1" style="color:#F7F7F7">我是学生</el-radio>
-            <el-radio :label="0" style="color:#F7F7F7">我是老师</el-radio>
-          </el-radio-group>
-        </div>
-        <div style="margin-top:5px;">
-          昵称：
-          <el-input
-            placeholder="输入一个可爱的用户名吧"
-            v-model="form.username"
-            size="small"
-            clearable
-            style="width:200px;">
-          </el-input>
-        </div>
-        <div style="margin-top:5px;">
-          密码：
-          <el-input
-            placeholder="设置你的密码"
-            v-model="form.pwd1"
-            size="small"
-            show-password
-            style="width:200px;">
-          </el-input>
-        </div>
-        <div style="margin-top:5px;">
-          确认：
-          <el-input
-            placeholder="再次确认你的密码"
-            v-model="form.pwd2"
-            size="small"
-            show-password
-            style="width:200px;">
-          </el-input>
-        </div>
+        <!-- <div class="triangle"></div> -->
+        <!-- <div class="triangle2"></div> -->
+      <el-form :model="form" :rules="rules" ref="form">
+        <div v-if="!isTelRe">
+          <div>
+            <el-radio-group v-model="form.type">
+              <el-radio :label="1" style="color:#F7F7F7">我是学生</el-radio>
+              <el-radio :label="0" style="color:#F7F7F7">我是老师</el-radio>
+            </el-radio-group>
+          </div>
+          <el-form-item class="formItem" prop="username">
+            昵称：
+            <el-input
+              placeholder="输入一个可爱的用户名吧"
+              v-model="form.username"
+              size="small"
+              clearable
+              style="width:200px;">
+            </el-input>
+          </el-form-item>
+          <el-form-item class="formItem" prop="pwd1">
+            密码：
+            <el-input
+              placeholder="设置你的密码"
+              v-model="form.pwd1"
+              size="small"
+              show-password
+              style="width:200px;">
+            </el-input>
+          </el-form-item>
+          <el-form-item class="formItem" prop="pwd2">
+            确认：
+            <el-input
+              placeholder="再次确认你的密码"
+              v-model="form.pwd2"
+              size="small"
+              show-password
+              style="width:200px;">
+            </el-input>
+          </el-form-item>
 
-      </div>
-      <div v-if="isTelRe">
-        手机号注册
-      </div>
-      <div class="submitBt">
-        <el-button plain type="primary" @click="register()">注册</el-button>
-        <el-button plain type="info" @click="reset()">重置</el-button>
-      </div>
-      <div class="login" @click="login()">已有账号?去登录</div>
+        </div>
+        <div v-if="isTelRe">
+          手机号注册
+        </div>
+        <el-form-item class="submitBt">
+          <el-button plain type="primary" @click="submitForm('form')">注册</el-button>
+          <el-button plain type="info" @click="resetForm('form')">重置</el-button>
+        </el-form-item>
+        <div class="login" @click="login()">已有账号?去登录</div>
+      </el-form>
+
     </div>
 
     <div>
@@ -63,6 +64,8 @@
   </div>
 </template>
 <script>
+// import axios from 'axios'
+// import request from '@/api/index'
 const USER_REGISTER = '账号密码注册'
 const TELE_REGISTER = '手机号注册'
 export default {
@@ -79,6 +82,21 @@ export default {
         pwd1: '',
         pwd2: '',
         type: 1
+      },
+      rules: {
+        username: [{required: true, message: '请输入username', trigger: 'blur'},
+          { min: 8,
+            max: 16,
+            message: '长度在8~16之间', /* trigger: 'blur' */
+            trigger: ['change', 'blur']
+          }],
+        pwd1: [{required: true, message: '请设置您的密码', trigger: 'blur'},
+          {min: 6, max: 20, message: `长度在6～20之间`, trigger: ['change', 'blur']}],
+        pwd2: [{required: true, message: '请再次输入密码', trigger: 'blur'},
+          {min: 6, max: 20, message: `长度在6～20之间`, trigger: ['change', 'blur']}]
+        // rules的格式
+        //  name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }, { min: 0, max: 50, message: '长度在 0到 50 个字符', trigger: 'change' }],
+
       }
     }
   },
@@ -104,13 +122,40 @@ export default {
         this.tagName = TELE_REGISTER
       }
     },
-    register () {
+    async submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // submit
+          console.log(`submit`)
+        } else {
+          this.$message.warning({ message: `请检查必填项OwO～`, center: true })
+          return false
+        }
+      })
 
+      // let params = this.$qs.stringify({
+      //   a: 1, b: 2, c: 3
+      // })
+      // console.log(params)
+      // let data = await request.register([{a: 1, b: 1}])
+      // console.log(data)
+      // axios({
+      //   method: 'get',
+      //   url: 'http://10.231.92.5:3000/api/user',
+      //   headers: 'application/x-www-form-urlencoded; charset=utf-8',
+      //   data: JSON.stringify({
+      //     username: '234234',
+      //     password: '4565'
+      //   })
+      // }).then((res) => {
+      //   console.log(res.data)
+      // })
     },
-    reset () {
+    resetForm (formName) {
       this.form.username = ''
       this.form.pwd1 = ''
       this.form.pwd2 = ''
+      this.$refs[formName].resetFields()
     },
     login () {
       let thisVue = this
@@ -124,12 +169,27 @@ export default {
   }
 }
 </script>
-
+<style lang="less">
+.formItem {
+  height: 55px;
+  .el-form-item__error {
+    color: #F56C6C;
+    font-size: 4px;
+    line-height: 1;
+    position: relative!important;
+    top: 0;
+    padding: 0!important;
+  }
+}
+</style>
 <style lang="less" scoped>
 // 把input框内文字变红的代码，加入/deep/ (两边有空格)
 // .el-input--small /deep/ .el-input__inner {
 //   color: red;
 // }
+.el-form-item {
+  margin-bottom: 0px !important;
+}
 
 .wrap{
   height: 100vh;

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 function request (Obj) {
+  console.log(Obj)
   if (Obj.method.toLowerCase() === 'get') {
     axios.get(Obj.url, Obj.params).then(
       res => {
@@ -19,6 +20,4 @@ function request (Obj) {
     return false
   }
 }
-export default {
-  request
-}
+export default request
