@@ -56,21 +56,28 @@
             </el-radio-group>
           </div>
           <el-form-item class="formItem" prop="tel">
-            手机号：
+            <el-button size="middle" style="background: rgba(0,0,0,0);border:none;width:90px;padding:10px;color:white;font-size:18px;">手机号：</el-button>
             <el-input
               placeholder="输入您的手机号"
               v-model="form.tel"
-              size="small"
+              size="medium"
               clearable
               style="width:200px;">
             </el-input>
           </el-form-item>
-          <div>
-            验证码
-            <div class="test">
+          <div class="formItem">
 
-            </div>
           </div>
+          <el-form-item class="formItem" prop="code">
+            <el-button size="middle" style="width:90px;padding:10px;color:#409EFF;">获取验证码</el-button>
+            <el-input
+              placeholder="输入收到的验证码"
+              v-model="form.code"
+              size="medium"
+              clearable
+              style="width:200px;">
+            </el-input>
+          </el-form-item>
         </div>
         <el-form-item class="submitBt">
           <el-button plain type="primary" @click="submitForm('form')">注册</el-button>
@@ -127,6 +134,7 @@ export default {
     wrapRotate () {
       if (this.isRotate) { return `transform: rotateY(0deg);transition: all 0.5s ease-in;` } else { return `transform: rotateY(90deg) rotateX(-180deg);transition: all 0.5s ease-out;` }
     }
+
   },
   mounted () {
     let thisVue = this
@@ -291,6 +299,20 @@ export default {
 .test {
   height: 100px;
   width: 200px;
-  background: grey;
+  background: rgb(255, 255, 255);
+}
+.point {
+  height: 1px;
+  width: 1px;
+  float: left;
+}
+.wenzi {
+  position: absolute;
+  margin: 0 auto;
+  // font-weight: 900;
+  font-size: 60px;
+}
+i::selection {
+  background: rgba(0, 0, 0, 1) !important;
 }
 </style>
