@@ -95,6 +95,7 @@
 <script>
 import axios from 'axios'
 import { register } from '@/api/index'
+import { isTel } from '@/common/reg'
 const USER_REGISTER = '账号密码注册'
 const TELE_REGISTER = '手机号注册'
 export default {
@@ -123,7 +124,9 @@ export default {
         pwd1: [{required: true, message: '请设置您的密码', trigger: 'blur'},
           {min: 6, max: 20, message: `长度在6～20之间`, trigger: ['change', 'blur']}],
         pwd2: [{required: true, message: '请再次输入密码', trigger: 'blur'},
-          {min: 6, max: 20, message: `长度在6～20之间`, trigger: ['change', 'blur']}]
+          {min: 6, max: 20, message: `长度在6～20之间`, trigger: ['change', 'blur']}],
+        tel: [{trigger: 'blur', validator: this.validatorTel}]
+
         // rules的格式
         //  name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }, { min: 0, max: 50, message: '长度在 0到 50 个字符', trigger: 'change' }],
 
@@ -143,6 +146,14 @@ export default {
     }, 10)
   },
   methods: {
+    validatorTel (rule, value, callback) {
+      let reg = isTel
+      if (value.length && reg.test(value)) {
+        callback()
+      } else {
+        callback(new Error('请输入正确的手机号'))
+      }
+    },
     // tag按钮事件-手机号注册
     telRegister () {
       if (!this.isTelRe) {

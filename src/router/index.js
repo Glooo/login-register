@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
 import Register from '@/components/Register'
+import test from '@/components/test'
 // import NotFound from '@/components/normal-page/NotFound'
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export const router = new Router({
       meta: {
         isLogin: false
       }
+    },
+    {
+      path: '/test',
+      name: test,
+      component: test
     }
     // ...normalRoutes,
     // {
