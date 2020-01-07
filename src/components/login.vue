@@ -28,6 +28,7 @@
         </el-input>
         <div class="error">*{{password_error}}</div>
       </div>
+      <el-checkbox v-model="autoLogin" style="margin-top:10px;">保持我的登录状态</el-checkbox>
     </div>
     <div class="submitBt">
       <el-button plain type="primary" @click="login()">登录</el-button>
@@ -43,6 +44,8 @@ import bangoCat from '@/components/bongo-cat/bangoCat'
 export default {
   data () {
     return {
+      // 自动登录
+      autoLogin: true,
       // 绑定style
       isRotate: false,
 
@@ -106,6 +109,15 @@ export default {
   }
 }
 </script>
+<style>
+  .el-checkbox__label {
+    color: #FFF;
+  }
+  .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #409EFF;
+    font-weight: 400;
+  }
+</style>
 <style lang="less" scoped>
 
 .main {
@@ -135,7 +147,7 @@ export default {
   }
   .submitBt {
     // width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     // padding:0 20%;
     display: flex;
     justify-content: center;
